@@ -1,5 +1,7 @@
 # OMES Scoreboard
 
+Discord: https://discord.gg/dATEunPQ2t
+
 A modern, feature-rich player scoreboard for FiveM servers. Compatible with both ESX and QBCore frameworks.
 
 ## Features
@@ -57,4 +59,4 @@ Config.DisplayedJobs = {
 This resource is licensed under MIT license.
 
 ## Support
-For issues, feature requests, or support, please open an issue on the GitHub repository. 
+For issues, feature requests, or support, please open an ticket on the discord https://discord.gg/dATEunPQ2t. 
