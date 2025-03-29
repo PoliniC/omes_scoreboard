@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Omes Scoreboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="scoreboard" class="hidden">
+        <div class="scoreboard-header">
+            <h1>Server Scoreboard</h1>
+            <div class="server-info">
+                <span id="online-count">Players Online: 0</span>
+            </div>
+        </div>
+        
+        <!-- Emergency services section will be dynamically inserted here in large mode -->
+        
+        <div class="scoreboard-content">
+            <div class="player-table">
+                <div class="table-header">
+                    <div class="header-id">ID</div>
+                    <div class="header-name">Name</div>
+                    <div class="header-ping">Ping</div>
+                </div>
+                <div id="player-list">
+                    <!-- Player list will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+        
+        <div class="scoreboard-footer">
+            <p>Press HOME to close | Arrow keys to scroll</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

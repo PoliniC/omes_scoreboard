@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center; /* Default center alignment */
+    align-items: center;
+}
+
+/* Scoreboard position classes */
+body.position-left {
+    justify-content: flex-start;
+}
+
+body.position-center {
+    justify-content: center;
+}
+
+body.position-right {
+    justify-content: flex-end;
+}
+
+/* Large mode always centers the scoreboard horizontally but positions it higher vertically */
+body.large-mode {
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10vh; /* Add top padding to position the scoreboard higher */
+}
+
+#scoreboard {
+    width: 25%;
+    max-height: 75%;
+    margin: 0 2%; /* Add margin to both sides for all positions */
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out; /* Changed from width to all to animate all properties */
+}
+
+/* Large mode scoreboard is wider */
+body.large-mode #scoreboard {
+    width: 50%;
+    max-height: 80%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.scoreboard-header {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scoreboard-header h1 {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.server-info {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.scoreboard-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    max-height: 65vh; /* Limit height with many players */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.3);
+}
+
+/* For large mode with many players */
+body.large-mode .scoreboard-content {
+    max-height: 60vh;
+}
+
+.player-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-header {
+    display: flex;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.header-id, .player-id {
+    width: 15%;
+    text-align: center;
+}
+
+.header-name, .player-name {
+    width: 65%;
+}
+
+.header-ping, .player-ping {
+    width: 20%;
+    text-align: center;
+}
+
+.player-row {
+    display: flex;
+    padding: 8px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: #ddd;
+    transition: background-color 0.2s;
+}
+
+.player-row:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.player-row:last-child {
+    border-bottom: none;
+}
+
+.player-ping {
+    color: #00ff00;
+}
+
+.ping-warning {
+    color: #ffaa00;
+}
+
+.ping-danger {
+    color: #ff0000;
+}
+
+.scoreboard-footer {
+    padding: 8px;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-align: center;
+    color: #999;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+/* Improve scrollbar visibility */
+.scoreboard-content::-webkit-scrollbar {
+    width: 8px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.scoreboard-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+
+.scoreboard-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Large mode with emergency services */
+.emergency-services {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+}
+
+.emergency-service {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.service-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    margin-right: 5px;
+}
+
+.service-count {
+    font-size: 14px;
+    color: white;
+}
+
+/* Only show emergency services in large mode */
+.emergency-services {
+    display: none;
+}
+
+body.large-mode .emergency-services {
+    display: flex;
+}
+
+/* Make space for services in large mode */
+body.large-mode .scoreboard-content {
+    max-height: calc(60vh - 40px);
+}
+
+/* Player job icon styling */
+.player-job-icon {
+    font-size: 16px;
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.player-name {
+    display: flex;
+    align-items: center;
+} 
