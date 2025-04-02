@@ -56,7 +56,9 @@ Config.DisplayedJobs = {
 - HOME key to close the scoreboard
 
 ## License
-This resource is licensed under MIT license.
+This project is licensed under the GNU General Public License v3.0.  
+You are free to use and modify the script, but you cannot sell or monetize it.  
+Read more about the license [here](https://www.gnu.org/licenses/gpl-3.0.html).
 
 ## Support
 For issues, feature requests, or support, please open an ticket on the discord https://discord.gg/dATEunPQ2t. 
