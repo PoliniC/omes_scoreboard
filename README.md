@@ -1,27 +1,41 @@
-# OMES Scoreboard
+# OMES Scoreboard (FiveMUP Fork)
 
-Discord: https://discord.gg/dATEunPQ2t
+Web: https://fivemup.io  
+Discord: https://discord.gg/fup  
 
-A modern, feature-rich player scoreboard for FiveM servers. Compatible with both ESX and QBCore frameworks.
+A modern, feature-rich player scoreboard for FiveM servers. Compatible with both ESX and QBCore frameworks.  
 
-## Features
+👉 This resource is a **fork of the original OMES Scoreboard**.  
+Modified by **FiveMUP** to be **compatible with fake players** and with improvements in configuration (the CFX Join Code is now defined in `config.lua`).  
 
-- Clean, modern UI with customizable position and size
-- Support for ESX and QBCore frameworks
-- Display of job counts for emergency services and other configured jobs
-- Job icons next to player names
-- Player ID display in 3D above characters
-- Configurable refresh rate
-- Scrollable player list
-- Ping display with color-coding
+If you want to enable **fake players** or get more exclusive tools for your server, join us at [FiveMUP](https://fivemup.io).
 
-## Installation
+---
 
-1. Extract the `omes_scoreboard` folder to your server's resources directory
-2. Add `ensure omes_scoreboard` to your server.cfg
-3. Edit the config.lua file to match your server's requirements
+## ✨ Features
 
-## Configuration
+- Clean, modern UI with customizable position and size  
+- Support for ESX and QBCore frameworks  
+- Display of job counts for emergency services and other configured jobs  
+- Job icons next to player names  
+- Player ID display in 3D above characters  
+- Configurable refresh rate  
+- Scrollable player list  
+- Ping display with color-coding  
+- ✅ Compatibility with fake players (custom fork by FiveMUP)  
+
+---
+
+## 📥 Installation
+
+1. Extract the `omes_scoreboard` folder to your server's resources directory  
+2. Add `ensure omes_scoreboard` to your server.cfg  
+3. Edit the `config.lua` file to match your server's requirements  
+
+---
+
+## ⚙️ Configuration
+
 
 ### Basic Setup
 - Set your preferred framework in `config.lua`:
