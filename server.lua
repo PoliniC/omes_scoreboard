@@ -1,23 +1,65 @@
-local function GetPlayersWithPing()
-    local players = {}
-    local playerList = GetPlayers()
-    
-    for _, player in ipairs(playerList) do
-        local ping = GetPlayerPing(player)
-        table.insert(players, {
-            id = player,
-            ping = ping
-        })
-    end
-    
-    return players
+Config = Config or {}
+
+local CFX_API_URL = ("https://servers-frontend.fivem.net/api/servers/single/%s"):format(Config.CfxJoinCode)
+local CACHE = { players = {}, last_ok = 0 }
+local REFRESH_MS = 180000
+local fetching = false
+
+local function UpdateCfxCache()
+    if fetching then return end
+    fetching = true
+    PerformHttpRequest(CFX_API_URL, function(status, body)
+        if status == 200 and body and body ~= "" then
+            local ok, decoded = pcall(json.decode, body)
+            if ok and decoded and decoded.Data and decoded.Data.players then
+                local out = {}
+                for _, p in ipairs(decoded.Data.players) do
+                    out[#out+1] = {
+                        id = tostring(p.id),
+                        name = p.name or ("player_" .. tostring(p.id)),
+                        ping = tonumber(p.ping) or -1
+                    }
+                end
+                CACHE.players = out
+                CACHE.last_ok = GetGameTimer()
+            end
+        end
+        fetching = false
+    end, "GET")
 end
+
+CreateThread(function()
+    UpdateCfxCache()
+    while true do
+        Wait(REFRESH_MS)
+        UpdateCfxCache()
+    end
+end)
 
 RegisterNetEvent('omes_scoreboard:requestPings')
 AddEventHandler('omes_scoreboard:requestPings', function()
-    local source = source
-    local players = GetPlayersWithPing()
-    TriggerClientEvent('omes_scoreboard:receivePings', source, players)
+    local src = source
+    if #CACHE.players == 0 or (GetGameTimer() - CACHE.last_ok) > (REFRESH_MS + 5000) then
+        UpdateCfxCache()
+    end
+    local compact = {}
+    for _, p in ipairs(CACHE.players) do
+        compact[#compact+1] = { id = p.id, ping = p.ping }
+    end
+    TriggerClientEvent('omes_scoreboard:receivePings', src, compact)
+end)
+
+RegisterNetEvent('omes_scoreboard:requestAllPlayers')
+AddEventHandler('omes_scoreboard:requestAllPlayers', function()
+    local src = source
+    if #CACHE.players == 0 or (GetGameTimer() - CACHE.last_ok) > (REFRESH_MS + 5000) then
+        UpdateCfxCache()
+    end
+    local allPlayers = {}
+    for _, p in ipairs(CACHE.players) do
+        allPlayers[#allPlayers+1] = { id = p.id, name = p.name }
+    end
+    TriggerClientEvent('omes_scoreboard:receiveAllPlayers', src, allPlayers)
 end)
 
 local ESX, QBCore = nil, nil
@@ -29,7 +71,6 @@ end
 
 local function GetPlayersWithJobs()
     local playerJobs = {}
-    
     if Config.Framework == "esx" and ESX then
         local xPlayers = ESX.GetPlayers()
         for _, playerId in ipairs(xPlayers) do
@@ -52,35 +93,12 @@ local function GetPlayersWithJobs()
             end
         end
     end
-    
     return playerJobs
 end
 
 RegisterNetEvent('omes_scoreboard:requestJobs')
 AddEventHandler('omes_scoreboard:requestJobs', function()
-    local source = source
+    local src = source
     local playerJobs = GetPlayersWithJobs()
-    TriggerClientEvent('omes_scoreboard:receiveJobs', source, playerJobs)
-end)
-
-local function GetAllPlayerInfo()
-    local allPlayers = {}
-    local playerList = GetPlayers()
-    
-    for _, playerId in ipairs(playerList) do
-        local name = GetPlayerName(playerId)
-        table.insert(allPlayers, {
-            id = playerId,
-            name = name
-        })
-    end
-    
-    return allPlayers
-end
-
-RegisterNetEvent('omes_scoreboard:requestAllPlayers')
-AddEventHandler('omes_scoreboard:requestAllPlayers', function()
-    local source = source
-    local allPlayers = GetAllPlayerInfo()
-    TriggerClientEvent('omes_scoreboard:receiveAllPlayers', source, allPlayers)
+    TriggerClientEvent('omes_scoreboard:receiveJobs', src, playerJobs)
 end)
