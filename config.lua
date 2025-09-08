@@ -6,11 +6,14 @@ Config.Framework = "esx"    -- Options: "esx", "qbcore", or "none"
 -- Key Bindings
 Config.OpenKey = 212       -- HOME key
 
+-- CFX Join Code (Example: x8p6dm)
+Config.CfxJoinCode = "x8p6dm"
+
 -- Scoreboard Settings
 Config.RefreshInterval = 5000  -- Update interval in ms
 Config.ScoreboardTitle = "Player List"  -- Title displayed at the top of the scoreboard
 Config.Position = "right"  -- Position of the scoreboard: "left", "center", or "right"
-Config.LargeMode = false   -- Set to true for a larger, centered scoreboard (overrides Position setting)
+Config.LargeMode = true   -- Set to true for a larger, centered scoreboard (overrides Position setting)
 Config.ShowJobs = true    -- Set to true to show job icons/counts, false to hide them
 
 -- Jobs to display in large mode
@@ -43,7 +46,6 @@ Config.DisplayedJobs = {
     -- Add more jobs as needed:
 
 }
-
 -- 3D ID Display Settings
 Config.ShowPlayerIDs = true
 Config.MaxDisplayDistance = 15.0
